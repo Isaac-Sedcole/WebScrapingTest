@@ -54,15 +54,19 @@ async function main() {
         headless: false,
     });
     const page = await browser.newPage();
-    await page.goto('https://example.org');
-    // await page.screenshot({path: `${__dirname}/screenshots/login.png`});
+    // await page.goto('https://example.org');
+    await page.goto('https://store.steampowered.com/app/703080/Planet_Zoo/')
+    await page.screenshot({path: `${__dirname}/screenshots/storepage.png`});
 
-    await page.waitForXPath('/html/body/div')
-    const [el] = await page.$x('/html/body/div')
+    
+    // await page.waitForXPath('/html/body/div')
+    // const [el] = await page.$x('/html/body/div')
+    await page.waitForXPath('/html/body/div[1]/div[7]/div[4]/div[1]/div[3]/div[2]/div[2]/div/div[3]')
+    const [el] = await page.$x('/html/body/div[1]/div[7]/div[4]/div[1]/div[3]/div[2]/div[2]/div/div[3]')
     const src = await el.getProperty('src')
     const srcTxt = await src.jsonValue()
 
-    console.log({srcTxt})
+    await page.content({path: `${__dirname}/information/${srcTxt}`})
 
     await browser.close();
 }

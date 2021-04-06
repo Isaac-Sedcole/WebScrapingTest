@@ -1,0 +1,23 @@
+{
+  "name": "WebScrappingTest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Isaac-Sedcole/WebScrappingTest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Isaac-Sedcole/WebScrappingTest/issues"
+  },
+  "homepage": "https://github.com/Isaac-Sedcole/WebScrappingTest#readme",
+  "dependencies": {
+    "puppeteer": "^8.0.0"
+  }
+}

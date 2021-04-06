@@ -48,27 +48,39 @@ const PATHS = {
 }
 
 async function main() {
+
+  try{
+
     const browser = await puppeteer.launch({
-        executablePath: PATHS[process.platform].executablePath,
-        userDataDir: PATHS.win32.userDataDir,
-        headless: false,
+      executablePath: PATHS[process.platform].executablePath,
+      userDataDir: PATHS.win32.userDataDir,
+      headless: false,
     });
     const page = await browser.newPage();
     // await page.goto('https://example.org');
     await page.goto('https://store.steampowered.com/app/703080/Planet_Zoo/')
-    await page.screenshot({path: `${__dirname}/screenshots/storepage.png`});
-
+    await page.screenshot({path: `${__dirname}/screenshots/storepage.png`})
     
+    //*[@id="game_highlights"]/div[1]/div/div[1]/img
     // await page.waitForXPath('/html/body/div')
     // const [el] = await page.$x('/html/body/div')
-    await page.waitForXPath('/html/body/div[1]/div[7]/div[4]/div[1]/div[3]/div[2]/div[2]/div/div[3]')
-    const [el] = await page.$x('/html/body/div[1]/div[7]/div[4]/div[1]/div[3]/div[2]/div[2]/div/div[3]')
-    const src = await el.getProperty('src')
-    const srcTxt = await src.jsonValue()
+    await page.waitForXPath('//*[@id="game_highlights"]/div[1]/div/div[3]/div/div[4]/div[1]')
+    const [el] = await page.$x('//*[@id="game_highlights"]/div[1]/div/div[3]/div/div[4]/div[1]')
+    const txt = await el.getProperty('textContent')
+    const rawTxt = await txt.jsonValue()
 
-    await page.content({path: `${__dirname}/information/${srcTxt}`})
-
+    //image
+    await page.waitForXPath('//*[@id="game_highlights"]/div[1]/div/div[1]/img')
+    const [e2] = await page.$x('//*[@id="game_highlights"]/div[1]/div/div[1]/img')
+    const src = await e2.getProperty('src')
+    const imgURL = await src.jsonValue()
+    
+    console.log({imgURL, rawTxt})
+    
     await browser.close();
+  } catch(e) {
+    console.log(e, "ERROR")
+  }
 }
 
 main().finally(async () => {

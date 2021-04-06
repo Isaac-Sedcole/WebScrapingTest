@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Isaac-Sedcole/WebScrappingTest#readme",
   "dependencies": {
-    "puppeteer": "^8.0.0"
+    "del": "^6.0.0",
+    "puppeteer": "^8.0.0",
+    "puppeteer-core": "^8.0.0"
   }
 }

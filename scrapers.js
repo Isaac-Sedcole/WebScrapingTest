@@ -54,20 +54,37 @@ async function main() {
     const browser = await puppeteer.launch({
       executablePath: PATHS[process.platform].executablePath,
       userDataDir: PATHS.win32.userDataDir,
-      headless: false,
+      headless: true,
     });
     const page = await browser.newPage();
     // await page.goto('https://example.org');
     await page.goto('https://store.steampowered.com/app/703080/Planet_Zoo/')
-    await page.screenshot({path: `${__dirname}/screenshots/storepage.png`})
+    // await page.screenshot({path: `${__dirname}/screenshots/storepage.png`})
     
     //*[@id="game_highlights"]/div[1]/div/div[1]/img
     // await page.waitForXPath('/html/body/div')
     // const [el] = await page.$x('/html/body/div')
-    await page.waitForXPath('//*[@id="game_highlights"]/div[1]/div/div[3]/div/div[4]/div[1]')
-    const [el] = await page.$x('//*[@id="game_highlights"]/div[1]/div/div[3]/div/div[4]/div[1]')
+    await page.waitForXPath('//*[@id="game_highlights"]/div[1]/div/div[4]/div/div[2]')
+    const [el] = await page.$x('//*[@id="game_highlights"]/div[1]/div/div[4]/div/div[2]')
     const txt = await el.getProperty('textContent')
-    const rawTxt = await txt.jsonValue()
+    let rawTxt = await txt.jsonValue()
+    // rawTxt = rawTxt.toString().replace(/\n/g,"").split('\r')
+    rawTxt = rawTxt.toString().replace(/\t/g, '').split('\r\n')
+    rawTxt = rawTxt.toString().replace(/\n/g, " ").split('\r\n')
+    rawTxt = rawTxt.toString().replace("+", "").split('\r\n')
+    let listOfStrings = rawTxt.toString().split(" ")
+    for(let i = 0; i< listOfStrings.length; i++) {
+      if(listOfStrings[i] === "") {
+        listOfStrings = listOfStrings.splice(i, 1)
+        
+      }
+    }
+
+
+
+    
+
+
 
     //image
     await page.waitForXPath('//*[@id="game_highlights"]/div[1]/div/div[1]/img')
@@ -75,7 +92,7 @@ async function main() {
     const src = await e2.getProperty('src')
     const imgURL = await src.jsonValue()
     
-    console.log({imgURL, rawTxt})
+    console.log({imgURL, rawTxt, listOfStrings})
     
     await browser.close();
   } catch(e) {

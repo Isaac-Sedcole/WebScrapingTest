@@ -81,10 +81,19 @@ async function main() {
     //     console.log("I didnt make it into the if statement", i)
     //   }
     // }
-    console.log(listOfStrings.length)
-    for(let i = 0; i<listOfStrings; i++) {
-      console.log(i, listOfStrings[i])
+
+    function removeA(arr) {
+      var what, a = arguments, L = a.length, ax
+      while (L > 1 && arr.length) {
+          what = a[--L]
+          while ((ax= arr.indexOf(what)) !== -1) {
+              arr.splice(ax, 1)
+          }
+      }
+      return arr;
     }
+
+    removeA(listOfStrings, "")
 
 
 

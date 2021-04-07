@@ -73,11 +73,17 @@ async function main() {
     rawTxt = rawTxt.toString().replace(/\n/g, " ").split('\r\n')
     rawTxt = rawTxt.toString().replace("+", "").split('\r\n')
     let listOfStrings = rawTxt.toString().split(" ")
-    for(let i = 0; i< listOfStrings.length; i++) {
-      if(listOfStrings[i] === "") {
-        listOfStrings = listOfStrings.splice(i, 1)
-        
-      }
+    // for(let i = 0; i< listOfStrings.length; i++) {
+    //   if(listOfStrings[i] === "") {
+    //     listOfStrings = listOfStrings.splice(i, 1)
+    //     console.log("I made it into the if statement", i)
+    //   } else {
+    //     console.log("I didnt make it into the if statement", i)
+    //   }
+    // }
+    console.log(listOfStrings.length)
+    for(let i = 0; i<listOfStrings; i++) {
+      console.log(i, listOfStrings[i])
     }
 
 

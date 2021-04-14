@@ -1,4 +1,4 @@
-# WebScrappingTest
+# WebScrapingTest
 
 ### Purpose
 I created this app in order to figure out how web scraping worked a little bit better. 
